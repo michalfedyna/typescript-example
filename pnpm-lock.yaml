@@ -14,9 +14,15 @@ importers:
 
   website:
     dependencies:
+      monaco-editor:
+        specifier: ^0.46.0
+        version: 0.46.0
       nuxt:
         specifier: ^3.10.3
         version: 3.10.3(eslint@8.57.0)(typescript@5.3.3)(vite@5.1.4)(vue-tsc@1.8.27)
+      nuxt-monaco-editor:
+        specifier: ^1.2.7
+        version: 1.2.7(monaco-editor@0.46.0)(vite@5.1.4)
       vue:
         specifier: ^3.4.19
         version: 3.4.21(typescript@5.3.3)
@@ -4402,6 +4408,14 @@ packages:
       ufo: 1.4.0
     dev: false
 
+  /monaco-editor-nls@3.1.0:
+    resolution: {integrity: sha512-GdzgKRAiwXlGI/ude/HbzP8ukml28yUoZ7rx/xsSsmYf9W13jTyWjXjoMK/+pjL6JorAThH2WkCYaDoCnIX7Jg==}
+    dev: false
+
+  /monaco-editor@0.46.0:
+    resolution: {integrity: sha512-ADwtLIIww+9FKybWscd7OCfm9odsFYHImBRI1v9AviGce55QY8raT+9ihH8jX/E/e6QVSGM+pKj4jSUSRmALNQ==}
+    dev: false
+
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -4728,6 +4742,22 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
+
+  /nuxt-monaco-editor@1.2.7(monaco-editor@0.46.0)(vite@5.1.4):
+    resolution: {integrity: sha512-kDhIu9KIIC7NAqGraBJwWk5paQ2G0lv6tmi4UTB4mb1TtNEgFr3X0C2q6kmabXBHGtawX55CQSOvvdEg6g3TQQ==}
+    peerDependencies:
+      monaco-editor: '*'
+    dependencies:
+      '@nuxt/kit': 3.10.3
+      defu: 6.1.4
+      monaco-editor: 0.46.0
+      monaco-editor-nls: 3.1.0
+      vite-plugin-static-copy: 0.17.1(vite@5.1.4)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vite
     dev: false
 
   /nuxt@3.10.3(eslint@8.57.0)(typescript@5.3.3)(vite@5.1.4)(vue-tsc@1.8.27):
@@ -6468,6 +6498,19 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: false
+
+  /vite-plugin-static-copy@0.17.1(vite@5.1.4):
+    resolution: {integrity: sha512-9h3iaVs0bqnqZOM5YHJXGHqdC5VAVlTZ2ARYsuNpzhEJUHmFqXY7dAK4ZFpjEQ4WLFKcaN8yWbczr81n01U4sQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
+    dependencies:
+      chokidar: 3.6.0
+      fast-glob: 3.3.2
+      fs-extra: 11.2.0
+      picocolors: 1.0.0
+      vite: 5.1.4
     dev: false
 
   /vite-plugin-vue-inspector@4.0.2(vite@5.1.4):
