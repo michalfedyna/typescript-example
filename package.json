@@ -3,11 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
+    "clean": "rm -r node_modules website/.nuxt website/node_modules"
   },
   "author": "Michał Fedyna <michal@fedyna.pl>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/michalfedyna/docs-react.git"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
   }
 }
