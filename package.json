@@ -1,0 +1,13 @@
+{
+  "name": "typescript-example-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+  },
+  "author": "Michał Fedyna <michal@fedyna.pl>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michalfedyna/docs-react.git"
+  }
+}
