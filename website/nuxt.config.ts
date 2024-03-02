@@ -1,10 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  vite: {
-    resolve: {
-      //preserveSymlinks: true,
-    },
-  },
+  css: ["~/assets/css/main.css"],
   typescript: {
     typeCheck: true,
     strict: true,
