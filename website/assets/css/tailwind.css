@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #__nuxt {
+    height: 100%;
+    @apply bg-gray-100;
+  }
+}
+
+code {
+  font-family: "Fira Mono", sans-serif;
+}
