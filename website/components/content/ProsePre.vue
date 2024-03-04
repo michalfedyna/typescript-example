@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between">
         <Icon v-if="icon" :name="icon" size="1.5em" />
         <a
-          class="text-sm text-gray-400 hover:text-gray-200"
+          class="text-sm font-light text-gray-400 hover:text-gray-200"
           v-if="$props.language === 'typescript'"
           :href="tsPlaygroundLink"
           target="_blank"
@@ -14,18 +14,9 @@
       </div>
     </div>
     <pre :class="`${$props.class} p-2`"><slot /></pre>
-    <div
-      class="copy absolute bottom-0 right-0 p-2 text-gray-400 hover:cursor-pointer"
-      @click="copyToClipboard"
-    >
-      <span :class="`mr-2 text-sm ${isCopyAlertVisible ? 'visible' : 'hidden'}`"
-        >Code copied!</span
-      >
-      <Icon
-        class="hover:text-gray-200"
-        size="1.5em"
-        name="material-symbols:content-copy-outline"
-      />
+    <div class="copy absolute bottom-0 right-0 p-2 text-gray-400 hover:cursor-pointer" @click="copyToClipboard">
+      <span :class="`mr-2 text-sm font-light ${isCopyAlertVisible ? 'visible' : 'hidden'}`"> Code copied! </span>
+      <Icon class="hover:text-gray-200" size="1.5em" name="material-symbols:content-copy-outline" />
     </div>
   </div>
 </template>
@@ -60,10 +51,7 @@ const props = defineProps({
   },
 });
 
-const tsPlaygroundLink = ref(
-  "https://www.typescriptlang.org/play?#code/" +
-    compressToEncodedURIComponent(props.code),
-);
+const tsPlaygroundLink = ref("https://www.typescriptlang.org/play?#code/" + compressToEncodedURIComponent(props.code));
 const icon = computed(() => {
   switch (props.language) {
     case "typescript":

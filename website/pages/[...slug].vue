@@ -21,7 +21,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-row justify-center">
+  <div class="flex items-center justify-center">
     <ContentTree class="bg-red-500" />
     <ContentRenderer :value="doc || undefined">
       <template #default="{ value }">
