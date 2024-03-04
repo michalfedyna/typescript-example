@@ -4,6 +4,9 @@ import type { NavItem } from "@nuxt/content/types";
 const route = useRoute();
 
 const { data: doc } = await useAsyncData(route.path, () => queryContent(route.path).findOne());
+const { data: links } = await useAsyncData("[prev, next]" + route.path, () =>
+  queryContent().only(["_path", "description", "title"]).findSurround(route.path),
+);
 const { data: navigation } = await useAsyncData("navigation", () => fetchContentNavigation());
 
 function printNavigation(items: NavItem[], level = 0) {
@@ -13,7 +16,18 @@ function printNavigation(items: NavItem[], level = 0) {
   });
 }
 
-const navigationItems = ref([]);
+const navigationPrevNext = computed(() => {
+  return (
+    links.value?.map((link) => {
+      if (!link) return null;
+      return {
+        title: link.title,
+        _path: link._path,
+        description: link.description,
+      };
+    }) || []
+  );
+});
 
 onMounted(() => {
   printNavigation(navigation.value || []);
@@ -25,9 +39,12 @@ onMounted(() => {
     <ContentTree class="bg-red-500" />
     <ContentRenderer :value="doc || undefined">
       <template #default="{ value }">
-        <article class="prose lg:prose-lg prose-slate">
-          <ContentRendererMarkdown :value="value" />
-        </article>
+        <div>
+          <article class="prose lg:prose-lg prose-slate">
+            <ContentRendererMarkdown :value="value" />
+          </article>
+          <NavigateButtons :items="navigationPrevNext" />
+        </div>
       </template>
       <template #empty>
         <div class="not-prose">
@@ -35,7 +52,6 @@ onMounted(() => {
         </div>
       </template>
     </ContentRenderer>
-    <NavigateButtons :items="navigationItems" />
     <ContentTable class="bg-red-500" />
   </div>
 </template>
