@@ -82,24 +82,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col-reverse justify-center lg:flex-row lg:items-start">
-    <ContentTree class="sticky top-0 hidden flex-1 lg:block" :tree="[]" />
-    <ContentRenderer :value="doc || undefined">
-      <template #default="{ value }">
-        <div class="flex min-w-0 flex-col px-6">
-          <NavigationBreadcrumb class="mb-6" :breadcrumbs="navigationBreadcrumbs" />
-          <article class="prose prose-slate lg:prose-lg">
+  <main class="flex flex-1 flex-col items-center justify-center p-4 lg:p-6">
+    <div class="flex max-w-full flex-col-reverse lg:flex-row lg:items-start">
+      <ContentTree class="sticky top-0 hidden flex-1 lg:block" :tree="[]" />
+      <ContentRenderer :value="doc || undefined">
+        <template #default="{ value }">
+          <article class="prose prose-slate mx-6 lg:prose-lg">
+            <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="navigationBreadcrumbs" />
             <ContentRendererMarkdown :value="value" />
+            <NavigateButtons class="not-prose" :items="navigationPrevNext" />
           </article>
-          <NavigateButtons :items="navigationPrevNext" />
-        </div>
-      </template>
-      <template #empty>
-        <div class="not-prose">
-          <Alert type="error">The page you are looking for does not exist.</Alert>
-        </div>
-      </template>
-    </ContentRenderer>
-    <ContentTable class="flex-1 lg:sticky lg:top-0" :toc="navigationTOC" />
-  </div>
+        </template>
+        <template #empty>
+          <div class="not-prose">
+            <Alert type="error">The page you are looking for does not exist.</Alert>
+          </div>
+        </template>
+      </ContentRenderer>
+      <ContentTable class="flex-1 lg:sticky lg:top-0" :toc="navigationTOC" />
+    </div>
+  </main>
 </template>

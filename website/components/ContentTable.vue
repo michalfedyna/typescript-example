@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4 flex flex-col items-start text-nowrap border-l-2 border-gray-200 p-6 py-10">
+  <div class="mt-4 flex flex-col items-start text-nowrap border-l-2 border-gray-200 pl-6 pt-6">
     <div class="flex flex-col gap-2">
       <NuxtLink
         v-for="item in $props.toc"
