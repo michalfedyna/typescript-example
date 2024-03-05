@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { fetchContentNavigation } from "#imports";
-import type { NavItem } from "@nuxt/content/types";
+import type { NavItem, TocLink } from "@nuxt/content/types";
+import type { TOC } from "~/components/ContentTable.vue";
+
 const route = useRoute();
 
 const { data: doc } = await useAsyncData(route.path, () => queryContent(route.path).findOne());
@@ -44,22 +46,45 @@ const navigationBreadcrumbs = computed(() => {
   );
 });
 
+function extractNavigationTOC(toc: TocLink, basePath: string, level: number = 0): TOC[] {
+  const newTOC: TOC = { path: basePath + toc.id, title: toc.text, level };
+  const newArray = [newTOC];
+
+  if (toc.children)
+    for (const item of toc?.children) {
+      const returnArray = extractNavigationTOC(item, basePath, level + 1);
+      newArray.push(...returnArray);
+    }
+
+  return newArray;
+}
+
+const navigationTOC = computed(() => {
+  if (!doc.value?.body?.toc || !doc.value._path) return [];
+
+  const returnArray: TOC[] = [];
+
+  for (const item of doc.value?.body?.toc?.links) {
+    const array = extractNavigationTOC(item, doc.value._path + "#", 0);
+    returnArray.push(...array);
+  }
+
+  return returnArray;
+});
+
 onMounted(() => {
-  console.log(route.path);
-  console.log(doc);
-  console.log(navigationBreadcrumbs.value);
-  printNavigation(navigation.value || []);
+  console.log(navigationTOC.value);
 });
 </script>
 
 <template>
-  <div class="flex items-center justify-center">
-    <ContentTree class="bg-red-500" />
+  <div class="flex items-start justify-center">
+    <ContentTree class="sticky top-0 flex-1 bg-red-500" />
     <ContentRenderer :value="doc || undefined">
       <template #default="{ value }">
-        <div>
+        <div class="mx-6 flex-shrink-0">
           <NavigationBreadcrumb class="mb-6" :breadcrumbs="navigationBreadcrumbs" />
-          <article class="prose lg:prose-lg prose-slate">
+          <article class="prose prose-slate lg:prose-lg">
             <ContentRendererMarkdown :value="value" />
           </article>
           <NavigateButtons :items="navigationPrevNext" />
@@ -71,6 +96,6 @@ onMounted(() => {
         </div>
       </template>
     </ContentRenderer>
-    <ContentTable class="bg-red-500" />
+    <ContentTable class="sticky top-0 flex-1" :toc="navigationTOC" />
   </div>
 </template>
