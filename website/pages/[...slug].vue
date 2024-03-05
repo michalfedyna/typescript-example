@@ -83,7 +83,7 @@ onMounted(() => {
 
 <template>
   <main class="flex flex-1 flex-col items-center justify-center p-4 lg:p-6">
-    <div class="flex max-w-full flex-col-reverse lg:flex-row lg:items-start">
+    <div class="flex max-w-full flex-1 flex-col-reverse lg:flex-row">
       <ContentTree class="sticky top-0 hidden flex-1 lg:block" :tree="[]" />
       <ContentRenderer :value="doc || undefined">
         <template #default="{ value }">
@@ -94,12 +94,12 @@ onMounted(() => {
           </article>
         </template>
         <template #empty>
-          <div class="not-prose">
+          <div class="not-prose flex flex-col justify-center">
             <Alert type="error">The page you are looking for does not exist.</Alert>
           </div>
         </template>
       </ContentRenderer>
-      <ContentTable class="flex-1 lg:sticky lg:top-0" :toc="navigationTOC" />
+      <ContentTable class="flex-1 self-start lg:sticky lg:top-0" :toc="navigationTOC" />
     </div>
   </main>
 </template>
