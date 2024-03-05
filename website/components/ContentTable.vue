@@ -1,17 +1,7 @@
+<!--TODO: Create recursive component-->
 <template>
   <div class="mt-4 flex flex-col items-start text-nowrap border-l-2 border-gray-200 pl-6 pt-6" v-if="toc.length">
-    <div class="flex flex-col gap-2">
-      <NuxtLink
-        v-for="item in $props.toc"
-        :to="item.path"
-        :class="`${item.level === 1 ? 'ml-6' : ''} group text-gray-700 underline hover:decoration-typescript`"
-      >
-        <Icon class="mr-1 text-gray-400 group-hover:text-typescript" name="ph:hash" />
-        <span>
-          {{ item.title }}
-        </span>
-      </NuxtLink>
-    </div>
+    <ContentAccordion :toc="toc" />
     <div class="mt-6 flex flex-col gap-2">
       <!--TODO: Update destinations-->
       <NuxtLink
@@ -43,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-export type TOC = { path: string; title: string; level: number };
+export type TOC = { path: string; title: string; children?: TOC[] };
 
 type Props = {
   toc: TOC[];

@@ -17,7 +17,11 @@
           Michał Fedyna
         </NuxtLink>
       </div>
+      <NuxtLink class="mb-4 mt-1 decoration-typescript decoration-2 hover:text-gray-600" to="mailto:michal@fedyna.dev">
+        &lt;michal<span class="text-typescript">@</span>fedyna.dev&gt;
+      </NuxtLink>
       <span class="text-md text-gray-600"> Copyright &copy; 2024 </span>
     </footer>
   </div>
 </template>
+<script setup lang="ts"></script>

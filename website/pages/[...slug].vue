@@ -1,105 +1,77 @@
 <script setup lang="ts">
-import { fetchContentNavigation } from "#imports";
 import type { NavItem, TocLink } from "@nuxt/content/types";
 import type { TOC } from "~/components/ContentTable.vue";
+import type { NavTree } from "~/components/ContentTree.vue";
+import usePrevNext from "~/composable/usePrevNext";
+import useBreadcrumbs from "~/composable/useBreadcrumbs";
+import useTOC from "~/composable/useTOC";
 
 const route = useRoute();
 
-const { data: doc } = await useAsyncData(route.path, () => queryContent(route.path).findOne());
-const { data: links } = await useAsyncData("[prev, next]" + route.path, () =>
-  queryContent().only(["_path", "description", "title"]).findSurround(route.path),
-);
+const { data: content } = await useAsyncData(route.path, () => queryContent(route.path).findOne());
+
+const prevNext = await usePrevNext();
+const breadcrumbs = useBreadcrumbs();
+const TOC = useTOC(content.value);
+
 const { data: navigation } = await useAsyncData("navigation", () => fetchContentNavigation());
 
-function printNavigation(items: NavItem[], level = 0) {
-  items.forEach((item) => {
-    console.log("  ".repeat(level) + item.title);
-    if (item.children) printNavigation(item.children, level + 1);
-  });
-}
+function extractNavigationTree(item: NavItem, level = 0): NavTree[] {
+  const newItem: NavTree = {
+    title: item.title,
+    path: item._path,
+    level,
+  };
+  const newArray: NavTree[] = [newItem];
 
-const navigationPrevNext = computed(() => {
-  return (
-    links.value?.map((link) => {
-      if (!link) return null;
-      return {
-        title: link.title,
-        _path: link._path,
-        description: link.description,
-      };
-    }) || []
-  );
-});
-
-const navigationBreadcrumbs = computed(() => {
-  return (
-    route.path
-      .split("/")
-      .filter((path) => path)
-      .map((part, index, parts) => {
-        const _path = "/" + parts.slice(0, index + 1).join("/");
-        return {
-          title: part.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
-          _path,
-        };
-      }) || []
-  );
-});
-
-function extractNavigationTOC(toc: TocLink, basePath: string, level: number = 0): TOC[] {
-  const newTOC: TOC = { path: basePath + toc.id, title: toc.text, level };
-  const newArray = [newTOC];
-
-  if (toc.children)
-    for (const item of toc?.children) {
-      const returnArray = extractNavigationTOC(item, basePath, level + 1);
+  if (item.children)
+    for (const child of item.children) {
+      const returnArray = extractNavigationTree(child, level + 1);
       newArray.push(...returnArray);
     }
 
   return newArray;
 }
 
-const navigationTOC = computed(() => {
-  if (!doc.value?.body?.toc || !doc.value._path) return [];
+const navigationTree = computed(() => {
+  if (!navigation.value) return [];
 
-  const returnArray: TOC[] = [];
+  const returnArray: NavTree[] = [];
 
-  for (const item of doc.value?.body?.toc?.links) {
-    const array = extractNavigationTOC(item, doc.value._path + "#", 0);
+  for (const item of navigation.value) {
+    const array = extractNavigationTree(item);
     returnArray.push(...array);
   }
 
   return returnArray;
 });
 
-const navigationTree = computed(() => {
-  return navigation.value || [];
-});
-
 onMounted(() => {
-  console.log(navigationTOC.value);
+  console.log(navigation.value);
+  console.log(navigationTree.value);
 });
 </script>
 
 <template>
   <main class="flex flex-1 flex-col items-center justify-center p-4 lg:p-6">
     <div class="flex max-w-full flex-1 flex-col-reverse lg:flex-row">
-      <ContentTree class="sticky top-0 hidden flex-1 lg:block" :tree="[]" />
-      <ContentRenderer :value="doc || undefined">
+      <ContentTree class="flex-1 self-start lg:sticky lg:top-0" :tree="navigationTree" />
+      <ContentRenderer :value="content ?? undefined">
         <template #default="{ value }">
           <article class="prose prose-slate mx-6 lg:prose-lg">
-            <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="navigationBreadcrumbs" />
+            <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="breadcrumbs" />
             <ContentRendererMarkdown :value="value" />
-            <NavigateButtons class="not-prose" :items="navigationPrevNext" />
+            <NavigateButtons class="not-prose" :prev="prevNext.prev" :next="prevNext.next" />
           </article>
         </template>
         <template #empty>
-          <div class="not-prose flex flex-col justify-center">
-            <Alert type="error">The page you are looking for does not exist.</Alert>
+          <div class="not-prose flex flex-col items-center justify-center">
+            <span class="text-8xl text-typescript">404</span>
+            <span class="text-4xl text-gray-400">Page not found</span>
           </div>
         </template>
       </ContentRenderer>
-      <ContentTable class="flex-1 self-start lg:sticky lg:top-0" :toc="navigationTOC" />
+      <ContentTable class="flex-1 self-start lg:sticky lg:top-0" :toc="TOC" />
     </div>
   </main>
 </template>

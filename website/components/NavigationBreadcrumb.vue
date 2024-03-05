@@ -6,7 +6,7 @@
     <Icon name="material-symbols:arrow-forward-ios-rounded" />
     <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
       <Icon v-if="index !== 0" name="material-symbols:arrow-forward-ios-rounded" />
-      <NuxtLink class="p-2 text-gray-500 hover:text-typescript" :to="breadcrumb._path">
+      <NuxtLink class="p-2 text-gray-500 hover:text-typescript" :to="breadcrumb.path">
         {{ breadcrumb.title }}
       </NuxtLink>
     </div>
@@ -14,9 +14,9 @@
 </template>
 
 <script setup lang="ts">
-type Breadcrumb = {
+export type Breadcrumb = {
   title: string;
-  _path: string;
+  path: string;
 };
 
 type Props = {
