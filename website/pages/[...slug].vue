@@ -29,7 +29,25 @@ const navigationPrevNext = computed(() => {
   );
 });
 
+const navigationBreadcrumbs = computed(() => {
+  return (
+    route.path
+      .split("/")
+      .filter((path) => path)
+      .map((part, index, parts) => {
+        const _path = "/" + parts.slice(0, index + 1).join("/");
+        return {
+          title: part.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+          _path,
+        };
+      }) || []
+  );
+});
+
 onMounted(() => {
+  console.log(route.path);
+  console.log(doc);
+  console.log(navigationBreadcrumbs.value);
   printNavigation(navigation.value || []);
 });
 </script>
@@ -40,6 +58,7 @@ onMounted(() => {
     <ContentRenderer :value="doc || undefined">
       <template #default="{ value }">
         <div>
+          <NavigationBreadcrumb class="mb-6" :breadcrumbs="navigationBreadcrumbs" />
           <article class="prose lg:prose-lg prose-slate">
             <ContentRendererMarkdown :value="value" />
           </article>
