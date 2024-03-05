@@ -13,7 +13,7 @@
         </a>
       </div>
     </div>
-    <pre :class="`${$props.class} p-2`"><slot /></pre>
+    <pre :class="`${$props.class} scroll overflow-x-scroll overscroll-contain p-4`"><slot /></pre>
     <div class="copy absolute bottom-0 right-0 p-2 text-gray-400 hover:cursor-pointer" @click="copyToClipboard">
       <span :class="`mr-2 text-sm font-light ${isCopyAlertVisible ? 'visible' : 'hidden'}`"> Code copied! </span>
       <Icon class="hover:text-gray-200" size="1.5em" name="material-symbols:content-copy-outline" />

@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :class="`mx-2 px-4 py-2  text-2xl font-light ${$props.callToAction ? 'rounded-md bg-typescript text-gray-100 shadow-sm hover:opacity-90' : 'decoration-typescript decoration-2 hover:underline'}`"
+    :class="`mx-1 px-2 py-1 text-xl font-light lg:px-4 lg:py-2 lg:text-2xl ${$props.callToAction ? 'rounded-md bg-typescript text-gray-100 shadow-sm hover:opacity-90' : 'decoration-typescript decoration-2 hover:underline'}`"
     :to="$props.to"
   >
     <slot></slot>

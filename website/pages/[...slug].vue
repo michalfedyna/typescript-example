@@ -72,17 +72,21 @@ const navigationTOC = computed(() => {
   return returnArray;
 });
 
+const navigationTree = computed(() => {
+  return navigation.value || [];
+});
+
 onMounted(() => {
   console.log(navigationTOC.value);
 });
 </script>
 
 <template>
-  <div class="flex items-start justify-center">
-    <ContentTree class="sticky top-0 flex-1 bg-red-500" />
+  <div class="flex flex-1 flex-col-reverse justify-center lg:flex-row lg:items-start">
+    <ContentTree class="sticky top-0 hidden flex-1 lg:block" :tree="[]" />
     <ContentRenderer :value="doc || undefined">
       <template #default="{ value }">
-        <div class="mx-6 flex-shrink-0">
+        <div class="flex min-w-0 flex-col px-6">
           <NavigationBreadcrumb class="mb-6" :breadcrumbs="navigationBreadcrumbs" />
           <article class="prose prose-slate lg:prose-lg">
             <ContentRendererMarkdown :value="value" />
@@ -96,6 +100,6 @@ onMounted(() => {
         </div>
       </template>
     </ContentRenderer>
-    <ContentTable class="sticky top-0 flex-1" :toc="navigationTOC" />
+    <ContentTable class="flex-1 lg:sticky lg:top-0" :toc="navigationTOC" />
   </div>
 </template>
