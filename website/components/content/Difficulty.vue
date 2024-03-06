@@ -1,8 +1,9 @@
 <template>
   <NuxtLink :to="linkToDifficulty[$props.difficulty]">
     <div
-      :class="`inline-block rounded-md border-2 px-4 py-2 ${colorsBorder[$props.difficulty]} ${colorsText[$props.difficulty]} ${colorsBackground[$props.difficulty]}`"
+      :class="`inline-flex flex-col rounded-md border-2 px-6 py-2 ${colorsBorder[$props.difficulty]} ${colorsText[$props.difficulty]} ${colorsBackground[$props.difficulty]}`"
     >
+      <span class="text-sm font-light">Difficulty</span>
       <span class="text-lg font-medium">{{
         $props.difficulty
           .split("-")
@@ -22,7 +23,7 @@ defineProps<Props>();
 
 const colorsBackground = {
   "warm-up": "bg-cyan-200",
-  easy: "bg-lime-200",
+  easy: "bg-green-200",
   medium: "bg-amber-200",
   hard: "bg-red-200",
   extreme: "bg-violet-200",
@@ -30,7 +31,7 @@ const colorsBackground = {
 
 const colorsText = {
   "warm-up": "text-cyan-600",
-  easy: "text-lime-600",
+  easy: "text-green-600",
   medium: "text-amber-600",
   hard: "text-red-600",
   extreme: "text-violet-600",

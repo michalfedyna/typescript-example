@@ -13,8 +13,4 @@
   </main>
 </template>
 
-<script setup lang="ts">
-useHead({
-  title: "TypeScript Example",
-});
-</script>
+<script setup lang="ts"></script>

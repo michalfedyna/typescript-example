@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col text-nowrap">
     <div class="flex flex-col" v-for="item in $props.tree">
-      <div class="w-full px-2 py-1">
+      <div class="w-full py-1">
         <NuxtLink
           :class="`hover:underline hover:decoration-typescript hover:decoration-2 ${item.path === $props.activePath ? 'underline decoration-typescript decoration-2' : ''}`"
           :to="item.path"

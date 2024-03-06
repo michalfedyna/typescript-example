@@ -6,7 +6,7 @@
           <div class="hidden flex-1 flex-col items-end lg:sticky lg:top-0 lg:flex lg:self-start">
             <slot name="navigation" />
           </div>
-          <article class="prose p-6 lg:prose-lg lg:min-w-[65ch]">
+          <article class="prose p-6 lg:prose-lg lg:w-[70ch] lg:min-w-0 lg:max-w-[70ch]">
             <slot name="default" />
           </article>
           <div class="flex flex-1 flex-col lg:sticky lg:top-0 lg:items-start lg:self-start">

@@ -1,6 +1,6 @@
 <template>
-  <h1 class="group" :id="id">
-    <a class="no-underline group-hover:underline group-hover:decoration-typescript" v-if="generate" :href="`#${id}`">
+  <h1 :id="id">
+    <a class="group no-underline hover:underline hover:decoration-typescript" v-if="generate" :href="`#${id}`">
       <slot />
       <Icon class="ml-2 opacity-20 group-hover:text-typescript group-hover:opacity-100" name="ph:hash" />
     </a>
