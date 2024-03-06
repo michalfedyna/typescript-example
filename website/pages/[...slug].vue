@@ -18,25 +18,23 @@ onMounted(() => {});
 </script>
 
 <template>
-  <main class="flex flex-1 flex-col items-center justify-center p-4 lg:p-6">
-    <ContentRenderer :value="content ?? undefined">
-      <template #default>
-        <div class="flex max-w-full flex-1 flex-col-reverse lg:w-full lg:flex-row lg:justify-center">
-          <NavigationTree class="hidden flex-1 self-start lg:sticky lg:top-0 lg:block" :tree="navTree" />
-          <article class="prose prose-slate mx-6 lg:prose-lg">
-            <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="breadcrumbs" />
-            <ContentRendererMarkdown :value="content ?? {}" />
-            <NavigateButtons class="not-prose" :prev="prevNext.prev" :next="prevNext.next" />
-          </article>
-          <ContentTable class="flex-1 self-start lg:sticky lg:top-0" :toc="TOC" />
-        </div>
-      </template>
-      <template #empty>
-        <div class="not-prose flex flex-col items-center justify-center">
-          <span class="text-8xl text-typescript">404</span>
-          <span class="text-4xl text-gray-400">Page not found</span>
-        </div>
-      </template>
-    </ContentRenderer>
-  </main>
+  <ContentLayout :content="content">
+    <template #navigation>
+      <NavigationTree :tree="navTree" />
+    </template>
+    <template #default>
+      <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="breadcrumbs" />
+      <ContentRendererMarkdown :value="content ?? {}" />
+      <NavigateButtons class="not-prose" :prev="prevNext.prev" :next="prevNext.next" />
+    </template>
+    <template #toc>
+      <ContentTable :toc="TOC" />
+    </template>
+    <template #empty>
+      <div class="not-prose flex flex-1 flex-col items-center justify-center">
+        <span class="text-8xl text-typescript">404</span>
+        <span class="text-4xl text-gray-400">Page not found</span>
+      </div>
+    </template>
+  </ContentLayout>
 </template>

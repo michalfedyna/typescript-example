@@ -1,5 +1,5 @@
 <template>
-  <div class="border-r-2 border-gray-200 py-6 pr-6">
+  <div class="border-r-2 border-gray-200 p-6">
     <NavigationAccordion :tree="$props.tree" />
   </div>
 </template>
