@@ -20,7 +20,7 @@ onMounted(() => {});
 <template>
   <ContentLayout :content="content">
     <template #navigation>
-      <NavigationTree :tree="navTree" />
+      <NavigationTree :active-path="route.path" :tree="navTree" />
     </template>
     <template #default>
       <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="breadcrumbs" />

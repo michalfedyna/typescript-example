@@ -1,6 +1,6 @@
 <template>
   <div class="border-r-2 border-gray-200 p-6">
-    <NavigationAccordion :tree="$props.tree" />
+    <NavigationAccordion :active-path="$props.activePath" :tree="$props.tree" />
   </div>
 </template>
 
@@ -13,6 +13,7 @@ export type NavTree = {
 
 type Props = {
   tree: NavTree[];
+  activePath: string;
 };
 
 defineProps<Props>();

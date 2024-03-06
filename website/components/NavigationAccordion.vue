@@ -1,11 +1,16 @@
 <template>
   <div class="flex flex-col text-nowrap">
     <div class="flex flex-col" v-for="item in $props.tree">
-      <NuxtLink class="px-2 py-1 hover:underline hover:decoration-typescript hover:decoration-2" :to="item.path">
-        {{ item.title }}
-      </NuxtLink>
+      <div class="w-full px-2 py-1">
+        <NuxtLink
+          :class="`hover:underline hover:decoration-typescript hover:decoration-2 ${item.path === $props.activePath ? 'underline decoration-typescript decoration-2' : ''}`"
+          :to="item.path"
+        >
+          {{ item.title }}
+        </NuxtLink>
+      </div>
 
-      <NavigationAccordion class="ml-4" v-if="item.children" :tree="item.children" />
+      <NavigationAccordion class="ml-4" v-if="item.children" :active-path="$props.activePath" :tree="item.children" />
     </div>
   </div>
 </template>
@@ -15,6 +20,7 @@ import type { NavTree } from "~/components/NavigationTree.vue";
 
 type Props = {
   tree: NavTree[];
+  activePath: string;
 };
 
 defineProps<Props>();

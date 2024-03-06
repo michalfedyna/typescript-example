@@ -1,5 +1,5 @@
 <template>
-  <div class="not-prose relative my-4 rounded-md bg-gray-700 shadow-md">
+  <div class="not-prose relative rounded-md bg-gray-700 shadow-md">
     <div class="rounded-t-md bg-gray-800 p-2">
       <div class="flex items-center justify-between">
         <Icon v-if="icon" :name="icon" size="1.5em" />
