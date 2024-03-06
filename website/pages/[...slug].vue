@@ -21,14 +21,14 @@ onMounted(() => {});
   <main class="flex flex-1 flex-col items-center justify-center p-4 lg:p-6">
     <ContentRenderer :value="content ?? undefined">
       <template #default>
-        <div class="flex max-w-full flex-1 flex-col-reverse lg:flex-row">
-          <NavigationTree class="self-start lg:sticky lg:top-0" :tree="navTree" />
+        <div class="flex max-w-full flex-1 flex-col-reverse lg:w-full lg:flex-row lg:justify-center">
+          <NavigationTree class="hidden flex-1 self-start lg:sticky lg:top-0 lg:block" :tree="navTree" />
           <article class="prose prose-slate mx-6 lg:prose-lg">
             <NavigationBreadcrumb class="not-prose mb-6" :breadcrumbs="breadcrumbs" />
             <ContentRendererMarkdown :value="content ?? {}" />
             <NavigateButtons class="not-prose" :prev="prevNext.prev" :next="prevNext.next" />
           </article>
-          <ContentTable class="self-start lg:sticky lg:top-0" :toc="TOC" />
+          <ContentTable class="flex-1 self-start lg:sticky lg:top-0" :toc="TOC" />
         </div>
       </template>
       <template #empty>
