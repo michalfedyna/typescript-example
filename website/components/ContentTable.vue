@@ -1,6 +1,7 @@
 <!--TODO: Create recursive component-->
 <template>
   <div class="mt-4 flex flex-col items-start text-nowrap border-l-2 border-gray-200 py-6 pl-6" v-if="toc.length">
+    <span class="mb-4 font-medium">On this page</span>
     <ContentAccordion :toc="toc" />
     <div class="mt-6 flex flex-col gap-2">
       <!--TODO: Update destinations-->

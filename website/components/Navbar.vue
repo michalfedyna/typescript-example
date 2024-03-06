@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 text-lg shadow-sm">
+  <div class="px-6 py-4 text-lg shadow-sm">
     <nav class="container m-auto flex items-center justify-between">
       <NuxtLink class="group" to="/">
         <div class="flex items-center justify-center text-2xl lg:text-3xl">
