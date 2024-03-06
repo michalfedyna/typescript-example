@@ -3,3 +3,4 @@
 ## TODO
 
 - [ ] Add [Twoslash](https://github.com/antfu/nuxt-content-twoslash) or alternative to enrich code examples
+- [ ] Add search functionality

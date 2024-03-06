@@ -1,8 +1,10 @@
 <script setup lang="ts">
-export type NavigationPrevNext = {
-  title: string;
-  path: string;
-} | null;
+export type NavigationPrevNext =
+  | {
+      title: string;
+      path: string;
+    }
+  | undefined;
 
 type Props = {
   prev: NavigationPrevNext;

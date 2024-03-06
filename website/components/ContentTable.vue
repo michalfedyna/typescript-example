@@ -1,6 +1,6 @@
 <!--TODO: Create recursive component-->
 <template>
-  <div class="mt-4 flex flex-col items-start text-nowrap border-l-2 border-gray-200 pl-6 pt-6" v-if="toc.length">
+  <div class="mt-4 flex flex-col items-start text-nowrap border-l-2 border-gray-200 py-6 pl-6" v-if="toc.length">
     <ContentAccordion :toc="toc" />
     <div class="mt-6 flex flex-col gap-2">
       <!--TODO: Update destinations-->

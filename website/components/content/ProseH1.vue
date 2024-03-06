@@ -1,15 +1,8 @@
 <template>
   <h1 class="group" :id="id">
-    <a
-      class="group-hover:decoration-typescript"
-      v-if="generate"
-      :href="`#${id}`"
-    >
+    <a class="group-hover:decoration-typescript" v-if="generate" :href="`#${id}`">
       <slot />
-      <Icon
-        class="ml-2 opacity-20 group-hover:text-typescript group-hover:opacity-100"
-        name="ph:hash"
-      />
+      <Icon class="ml-2 opacity-20 group-hover:text-typescript group-hover:opacity-100" name="ph:hash" />
     </a>
     <slot v-else />
   </h1>

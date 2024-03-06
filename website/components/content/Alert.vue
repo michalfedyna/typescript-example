@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="`not-prose flex flex-row items-center rounded-md p-4 shadow-md ${typeClass}`"
-  >
+  <div :class="`not-prose flex flex-row items-center rounded-md p-4 shadow-md ${typeClass}`">
     <Icon class="mr-2 flex-shrink-0" :name="iconName" size="1.5em" />
     <ContentSlot :use="$slots.default" />
   </div>

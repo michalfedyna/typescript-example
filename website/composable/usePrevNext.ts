@@ -10,20 +10,12 @@ export default async function (): Promise<ComputedRef<{ prev: NavigationPrevNext
 
   return computed(() => {
     const items = links?.value;
-    if (!items) return { prev: null, next: null };
+    if (!items) return { prev: undefined, next: undefined };
 
-    const prevItem = items[0];
-    const nextItem = items[1];
+    let prev, next;
 
-    const prev = {
-      title: prevItem.title,
-      path: prevItem._path,
-    };
-
-    const next = {
-      title: nextItem.title,
-      path: nextItem._path,
-    };
+    if (items[0]) prev = { title: items[0].title, path: items[0]._path };
+    if (items[1]) next = { title: items[1].title, path: items[1]._path };
 
     return { prev, next };
   });
